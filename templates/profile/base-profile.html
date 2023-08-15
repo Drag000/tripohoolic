@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=\, initial-scale=1.0"/>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}"/>
+    <title>Tripooholic</title>
+</head>
+<body>
+<div id="wrapper">
+    <header>
+        <!-- Navigation -->
+        <a id="logo" href="{% url 'index' %}">
+            <img id="logo-img" src="{% static 'images/logo2.png' %}" alt="logo"/>
+        </a>
+
+        <nav>
+            <div class="nav-links">
+                <ul class="nav-group">
+                    {% if request.user.is_authenticated %}
+                        <div class="user">
+                            <a href="{% url 'details user' pk=request.user.pk %}"><i>{{ request.user.username }}</i></a>
+                            {# <i>{{ request.user.username }}</i>#}
+                            <a href="{% url 'dashboard' %}"><i>My Trips</i></a>
+                            <a href="{% url 'create trip' %}"><i>Create Trip</i></a>
+                            <a href="{% url 'logout user' %}"><i>Logout</i></a>
+                        </div>
+                    {% else %}
+                        <div class="guest">
+                            <a href="{% url 'register user' %}"><i>Register</i></a>
+                            <a href="{% url 'login user' %}"><i>Login</i></a>
+                        </div>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+</div>

@@ -1,0 +1,39 @@
+{% extends 'trips/base-trip.html' %}
+{% load static %}
+
+{% block content %}
+
+    <main>
+        <!-- Fruit Details -->
+        <section id="details">
+            <div id="details-wrapper">
+                <!-- fruit image -->
+                {#                <img id="details-img" src="{{fruit.image_url}}" alt="example1"/>#}
+                <!-- fruit name -->
+
+                <div>
+                    <p><b><u>Trip name:</u></b> {{ trip.trip_name }}</p>
+                    <p><b><u>Trip type:</u></b> {{ trip.type }}</p>
+                    {% if trip.type == "Agency" %}
+                        <p><b><u>Agency:</u></b> {{ trip.used_agency }}</p>
+                    {% endif %}
+                    <p><b><u>Country:</u></b> {{ trip.country.name }}</p>
+                    <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
+                    <p>{{ trip.sightseeing }}</p>
+                    <p>{{ trip.activities }}</p>
+                    <p>{{ trip.food_and_drinks }}</p>
+                    <p>{{ trip.transport }}</p>
+                    <p>{{ trip.notes }}</p>
+                </div>
+
+                <!--Edit and Delete buttons -->
+                <div id="action-buttons">
+                    <a href="{% url 'edit trip' pk=trip.pk %}" id="edit-btn">Edit</a>
+                    <a href="{% url 'delete trip' pk=trip.pk %}" id="delete-btn">Delete</a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

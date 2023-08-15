@@ -1,0 +1,29 @@
+{% extends 'profile/base-profile.html' %}
+
+{% block content %}
+
+    <div class="login-register-div">
+        <div class="login-register-box">
+            <h1>Tripohoolic</h1>
+
+            <!-- Start Login Form-->
+            <form action="{% url 'login user' %}" method="post">
+{#                {{ form.username|placeholder:'Enter username:'|form_field_class:'form-username' }}#}
+{#                {{ form.password|placeholder:'Enter password:' }}#}
+                {{ form.as_p }}
+                <input type="hidden" value="{{ next }}" name="next"/>
+
+                <!-- Login Button-->
+               <p> <button type="submit">Log in</button> </p>
+                {% csrf_token %}
+            </form>
+            <!-- End Login Form -->
+
+        </div>
+        <div class="second-option">
+            <!-- Link to Register Page-->
+            <p>Don't have account? <a href="{% url 'register user' %}?next={{ next }}">Register</a></p>
+        </div>
+    </div>
+
+{% endblock %}

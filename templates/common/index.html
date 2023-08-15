@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=\, initial-scale=1.0"/>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}"/>
+    <title>Tripooholic</title>
+</head>
+<body>
+<div id="wrapper">
+    <header>
+        <!-- Navigation -->
+        <a id="logo" href="{% url 'index' %}">
+            <img id="logo-img" src="{% static 'images/logo2.png' %}" alt="logo"/>
+        </a>
+
+        <nav>
+            <div class="nav-links">
+                <ul class="nav-group">
+                    {% if request.user.is_authenticated %}
+                        <div class="user">
+                            <a href="{% url 'details user' pk=request.user.pk %}"><i>{{ request.user.username }}</i></a>
+                            {# <i>{{ request.user.username }}</i>#}
+                            <a href="{% url 'dashboard' %}"><i>My Trips</i></a>
+                            <a href="{% url 'agencies' %}"><i>Agencies</i></a>
+                            <a href="{% url 'create trip' %}"><i>Create Trip</i></a>
+                            <a href="{% url 'logout user' %}"><i>Logout</i></a>
+                        </div>
+                    {% else %}
+                        <div class="guest">
+                            <a href="{% url 'register user' %}"><i>Register</i></a>
+                            <a href="{% url 'login user' %}"><i>Login</i></a>
+                        </div>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Start Searchbar Form -->
+
+        <form class="searchbar" method="get" action="{% url 'index' %}">
+            {{ search_form_country }}
+            {{ search_form_city }}
+            <button>
+                <img src="{% static 'images/search_icon.png' %}" height="12" alt="img2">
+            </button>
+            {% csrf_token %}
+        </form>
+
+        <!-- End Searchbar Form -->
+
+        <!-- Home page -->
+        {% for trip in trips %}
+            <div id="details-wrapper">
+                <!-- fruit image -->
+                {#                <img id="details-img" src="{{fruit.image_url}}" alt="example1"/>#}
+                <!-- fruit name -->
+                <p><b>{{ trip.user.username }}</b></p>
+                <p><b><u>Trip name:</u></b> {{ trip.trip_name }}</p>
+                <p><b><u>Trip type:</u></b> {{ trip.type }}</p>
+                {% if trip.type == "Agency" %}
+                    <p><b><u>Agency:</u></b> {{ trip.used_agency }}</p>
+                {% endif %}
+                <p><b><u>Country:</u></b> {{ trip.country.name }}</p>
+                <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
+                <a class="details-btn" href="{% url 'details trip' pk=trip.pk %}">More Details</a>
+            </div>
+
+            {% include 'common/trip_comment.html' with trip=trip %}
+
+            <div class="rate-section">
+                <h2>Rate Trip</h2>
+
+                <form class="create-form" method="post" action="{% url 'rate trip' trip_id=trip.pk %}">
+                    {{ rate_form.as_p }}
+                    <p><button type="submit">Rate</button></p>
+                    {% csrf_token %}
+                </form>
+            </div>
+
+
+        {% endfor %}
+
+    </main>
+</div>
+</body>
+</html>
