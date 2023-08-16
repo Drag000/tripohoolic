@@ -92,3 +92,10 @@ class Trips(models.Model):
         null=False,
         blank=True,
     )
+
+    average_rating = models.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        default=0.0,
+        blank=True,
+    )

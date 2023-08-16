@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg
 from django.shortcuts import render, redirect
 
 from tripohoolic.common.forms import TripCommentForm, TripRatingForm, SearchCountryForm, SearchCityForm
@@ -29,6 +30,7 @@ def index(request):
 
     if search_pattern:
         trips = trips.filter(city__icontains=search_pattern)
+
 
     context = {
         'trips': trips,
@@ -73,6 +75,8 @@ def comment_trip(request, trip_id):
 def rate_trip(request, trip_id):
     rating_trip = Trips.objects.get(pk=trip_id)
 
+
+
     try:
         existing_rating = TripRating.objects.get(trip_id=trip_id, user_id=request.user.id)
         existing_rating.delete()
@@ -86,5 +90,7 @@ def rate_trip(request, trip_id):
         rate.trip_id = rating_trip.pk  # вземи trip вече избрано с trip_in
         rate.user_id = request.user.id
         rate.save()
+
+
 
     return redirect('index')

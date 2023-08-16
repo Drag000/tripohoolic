@@ -1,14 +1,25 @@
-
+<h2>Comments</h2>
 <div class="comments-section">
-    <h2>Comments</h2>
-    {% for comment in trip.tripcomment_set.all %}
-        <div class="comment">
-            <div class="comment-author"><a href="{% url 'details user' pk=request.user.pk %}">{{ comment.user }}</a>
-            </div>
-            <div class="comment-text">{{ comment.text }}</div>
-        </div>
-    {% endfor %}
-    <!-- Add comments -->
+
+    <div class="posted-comments">
+        {% if trip.tripcomment_set.all %}
+            {% for comment in trip.tripcomment_set.all %}
+                <div class="comment">
+                    <div class="comment-author"><a
+                            href="{% url 'details user' pk=request.user.pk %}">{{ comment.user }}</a>
+                    </div>
+                    <div class="comment-text">{{ comment.text }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            No comments yet.
+        {% endif %}
+    </div>
+</div>
+
+<!-- Add comments -->
+<div class="add-comment">
+    <h2>Add Comment</h2>
     <div class="comment">
         <form method="post" action="{% url 'comment trip' trip_id=trip.pk %}">
             {{ comments_form.as_p }}
@@ -18,5 +29,4 @@
             {% csrf_token %}
         </form>
     </div>
-
 </div>

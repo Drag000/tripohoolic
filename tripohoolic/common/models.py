@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Avg
 
 from tripohoolic.trips.models import Trips
 
@@ -22,7 +23,7 @@ class TripComment(models.Model):
 
     trip = models.ForeignKey(
         Trips,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE,
         null=False,
         blank=True,
     )
@@ -57,3 +58,11 @@ class TripRating(models.Model):
     rate = models.PositiveIntegerField(
         choices=RATES,
     )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Calculate and update the average rating in the related Trips instance
+        average_rating = TripRating.objects.filter(trip=self.trip).aggregate(Avg('rate'))['rate__avg']
+        self.trip.average_rating = average_rating
+        self.trip.save()

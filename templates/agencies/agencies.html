@@ -1,45 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'common/base.html' %}
+{% load static %}
 
-asd
-<p>asd</p>
-<p>asd</p>
-<p>asd</p>
-<p>asd</p>
-<div>asd</div>
-<div>asd</div>
-<div>asd</div>
-<ol>ol</ol>
-<ol>ol</ol>
-<ol>ol</ol>
+{% block content %}
 
-<li>li</li>
-<li>li</li>
-<li>li</li>
+    <main>
+        <h1>Agencies</h1>
+        {% if agencies %}
+            <section id="dashboard-agencies">
+                {% for agency in agencies %}
+                    <div class="agency">
+                        <p><b><u>Agency name:</u></b> {{ agency.agency_name }}</p>
+                        <p><b><u>Website:</u></b> {{ agency.agency_website }}</p>
 
+                    {% for used_agency in used_agency.trips_set.all %}
+                        {{ used_agency.trip_name }}
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+            </section>
+        {% else %}
+            <h2>No Agencies yet.</h2>
+        {% endif %}
+    </main>
 
-<ul>ul</ul>>
-<ul>ul</ul>>
-<ul>ul</ul>>
-
-    <div class="comments-section">
-        <h2>Comments</h2>
-        <div class="comment">
-            <div class="comment-author">John Doe</div>
-            <div class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-        </div>
-        <div class="comment">
-            <div class="comment-author">Jane Smith</div>
-            <div class="comment-text">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</div>
-        </div>
-        <!-- Add more comments here -->
-    </div>
-
-
-</body>
-</html>
+{% endblock %}

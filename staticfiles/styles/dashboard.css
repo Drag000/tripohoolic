@@ -1,71 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 #dashboard {
-  margin: 50px;
-  display: flex;
-  align-items: center;
-  justify-content:center ;
-  flex-wrap: wrap;
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 
 }
- h2 {
-  text-align: center;
-  font-size: 50px;
-  color: rgb(52, 91, 235);
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    color: rgb(52, 91, 235);
 }
 
-.fruit {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 25vw;
-  height: 50vh;
-  padding-bottom: 1rem;
-  margin: 20px auto;
-  background-color: rgb(250, 190, 134);
-  border-radius: 5px;
-  border: 1px solid rgb(245, 90, 90);
-  box-shadow: -4px 3px 25px 1px rgba(0,0,0,0.55);
--webkit-box-shadow: -4px 3px 25px 1px rgba(0,0,0,0.55);
--moz-box-shadow: -4px 3px 25px 1px rgba(0,0,0,0.55);
- 
+.trip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 30vw;
+    height: 20vw;
+    padding-bottom: 1rem;
+    margin: 20px auto;
+    background-color: rgb(83, 208, 93);
+    border-radius: 5px;
+    border: 1px solid rgb(245, 90, 90);
+    box-shadow: -4px 2px 23px 2px rgba(0, 0, 0, 0.65);
 }
 
-/* .fruit:hover {
-  transform: scale(1.3);
-} */
-.fruit img {
-  height:12vw; 
+.trip:hover {
+    transform: scale(1.05);
 }
 
-.fruit .title {
-  margin: 0;
-  letter-spacing: 2px;
-  color: rgb(95, 94, 94);
-  text-decoration: underline;
+.trip img {
+    height: 12vw;
+}
+
+.trip_name {
+    margin: 0;
+    letter-spacing: 2px;
+    color: rgb(95, 94, 94);
+    text-decoration: underline;
 }
 
 .details-btn {
-  margin-top: 4px;
-  text-decoration: none;
-  font-size: 21px;
-  width: 160px;
-  border-radius: 3px;
-  text-align: center;
-  color: white;
-  background: rgb(76, 102, 199);
+    margin-top: 4px;
+    text-decoration: none;
+    font-size: 21px;
+    width: 150px;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    background: rgb(76, 102, 199);
 }
+
 .details-btn:hover {
-  background: #bd2c2c;
+    background: #ff7100;
 }
-.fruit p {
-  margin: auto;
-  font-size: 0.7rem;
-  font-weight: 500;
-  width: 90%;
-  text-align: center;
-  color: rgb(24, 23, 23);
-  font-family: 'Roboto', sans-serif;
+
+.trip p {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    color: rgb(24, 23, 23);
+
 }
 

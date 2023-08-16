@@ -1,15 +1,14 @@
-{% extends 'trips/base-trip.html' %}
+{% extends 'common/base.html' %}
 {% load static %}
 
 {% block content %}
 
     <main>
-        <!-- Fruit Details -->
         <section id="details">
             <div id="details-wrapper">
-                <!-- fruit image -->
-                {#                <img id="details-img" src="{{fruit.image_url}}" alt="example1"/>#}
-                <!-- fruit name -->
+                <!-- trip image -->
+                {#                <img id="details-img" src="{{trip.image_url}}" alt="trip_photo"/>#}
+                <!-- trip name -->
 
                 <div>
                     <p><b><u>Trip name:</u></b> {{ trip.trip_name }}</p>
@@ -19,11 +18,11 @@
                     {% endif %}
                     <p><b><u>Country:</u></b> {{ trip.country.name }}</p>
                     <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
-                    <p>{{ trip.sightseeing }}</p>
-                    <p>{{ trip.activities }}</p>
-                    <p>{{ trip.food_and_drinks }}</p>
-                    <p>{{ trip.transport }}</p>
-                    <p>{{ trip.notes }}</p>
+                    <p><b><u>Sightseeing:</u></b> {{ trip.sightseeing }}</p>
+                    <p><b><u>Activities:</u></b> {{ trip.activities }}</p>
+                    <p><b><u>Food and Drinks:</u></b> {{ trip.food_and_drinks }}</p>
+                    <p><b><u>Transport:</u></b> {{ trip.transport }}</p>
+                    <p><b><u>Notes:</u></b> {{ trip.notes }}</p>
                 </div>
 
                 <!--Edit and Delete buttons -->

@@ -39,7 +39,7 @@ def create_trip(request):
             trip = form.save(commit=False)  # Create an instance of the Trip model without saving to the database
             trip.user = request.user  # Assign the authenticated user to the 'user' field
             trip.save()  # Save the instance to the database
-            return redirect('index')
+            return redirect('dashboard')
 
     # if form.is_valid():
     #     pet = form.save(commit=False)
@@ -113,7 +113,7 @@ def delete_trip(request, pk):  # само formata e различна, а три�
         form = TripDeleteForm(request.POST, instance=trip)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('dashboard')
 
     context = {
         'form': form,

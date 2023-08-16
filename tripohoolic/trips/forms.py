@@ -7,8 +7,9 @@ from tripohoolic.trips.models import Trips
 class TripBaseForm(forms.ModelForm):
     class Meta:
         model = Trips
-        fields = ('trip_name', 'type', 'used_agency', 'country', 'cities')
-        # exclude = ('user',)
+        # fields = '__all__'
+        # fields = ('trip_name', 'type', 'used_agency', 'country', 'cities')
+        exclude = ('average_rating','user')
 
     labels = {
         'type': "Type of trip",
@@ -24,7 +25,6 @@ class TripBaseForm(forms.ModelForm):
         'cities': forms.TextInput(
             attrs={
                 'placeholder': 'Please describe which cities / places did you visit', }
-            # placeholder.. сивият текст в полето
         ),
 
         'sightseeing': forms.TextInput(

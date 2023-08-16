@@ -1,13 +1,14 @@
-{% extends 'profile/base-profile.html' %}
+{% extends 'common/base.html' %}
 {% load static %}
 
 {% block content %}
 
     <main>
         <!-- Profile Details Section -->
+        <h1>Profile Details</h1>
         <section id="details">
             <div id="details-wrapper">
-                <h2>Profile Details</h2>
+
                 <!-- if the user has a profile image -->
                 {#                {% if profile_picture %}#}
                 {#                    <img id="details-img" src="{{ object.profile_picture }}"#}
@@ -19,16 +20,13 @@
 
                 <!-- user's full name -->
                 <p id="details-title">
-                    {{ user_profilee.first_name }} {{ object.last_name }}
+                    Username: {{ userr.username }} {# .. = reuqest.user  #}
                 <p>
-                    {{ userr.username }} {# .. = reuqest.user  #}
-                </p>
-                <p>
-                    {{ userr.email }}
-                </p>
-                <p>
-                    {{ object.age }}
-                </p>
+                <p><b><u>First name:</u></b> {{ object.first_name }}</p>  {#.. {{ user_profilee.first_name }} #}
+                <p><b><u>Last name:</u></b> {{ object.last_name }}</p>  {#.. {{ user_profilee.first_name }} #}
+                <p><b><u>Email:</u></b> {{ userr.email }}</p>  {#.. {{ user_profilee.first_name }} #}
+                <p><b><u>Age:</u></b> {{ object.age }}</p>  {#.. {{ user_profilee.first_name }} #}
+
 
                 <div id="info-wrapper">
                     <div id="details-description">

@@ -1,16 +1,15 @@
-{% extends 'profile/base-profile.html' %}
+{% extends 'common/base.html' %}
 {% load static %}
 
 {% block content %}
 
     <main>
         <!-- Dashboard Page -->
-        <h2>My Trips</h2>
+        <h1>My Trips</h1>
         {% if trips %}
             <section id="dashboard">
                 {% for trip in trips %}
-                    <!-- first fruit -->
-                    <div class="fruit">
+                    <div class="trip">
                         <p><b><u>Trip name:</u></b> {{ trip.trip_name }}</p>
                         <p><b><u>Trip type:</u></b> {{ trip.type }}</p>
                         {% if trip.type == "Agency" %}
@@ -18,7 +17,7 @@
                         {% endif %}
                         <p><b><u>Country:</u></b> {{ trip.country.name }}</p>
                         <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
-                        <!-- fruit details button -->
+
                         <a class="details-btn" href="{% url 'details trip' pk=trip.pk %}">More Details</a>
                     </div>
                 {% endfor %}

@@ -8,10 +8,8 @@ class TripCommentForm(forms.ModelForm):
         model = TripComment
         fields = ('text',)
         widget = {
-            'text': forms.Textarea(
+            'text': forms.TextInput(
                 attrs={
-                    'cols': 40,
-                    'rows': 10,
                     'placeholder': 'Please add your comment',
                 },
             ),
