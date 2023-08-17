@@ -80,6 +80,7 @@ span {
     flex-direction: column;
     background-color: rgb(217, 222, 215);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    border-radius: 13px;
 }
 
 h2 {
@@ -137,19 +138,20 @@ h4 {
     background-color: #f0f0f0;
     bottom: 0;
     z-index: 1;
-    height: 6vh auto;
+    height: 10vh;
     width: 70%;
+    border-radius: 13px;
 }
 
 
 .rate-section {
     margin: 1px auto;
     height: 3vh;
-    width: 70%;
-    border-radius: 1px;
+    width: 50%;
     padding: 10px;
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    background-color: rgb(219, 224, 218);
-    text-align: center
+    background-color: rgb(204, 204, 245);
+    text-align: center;
+    border-radius: 13px;
 }

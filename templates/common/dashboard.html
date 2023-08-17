@@ -17,6 +17,7 @@
                         {% endif %}
                         <p><b><u>Country:</u></b> {{ trip.country.name }}</p>
                         <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
+                        <p><b><u>Rating:</u></b> {{ trip.average_rating }}</p>
 
                         <a class="details-btn" href="{% url 'details trip' pk=trip.pk %}">More Details</a>
                     </div>

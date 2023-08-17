@@ -11,10 +11,13 @@
                     <div class="agency">
                         <p><b><u>Agency name:</u></b> {{ agency.agency_name }}</p>
                         <p><b><u>Website:</u></b> {{ agency.agency_website }}</p>
+                        <h4><b>Reviews in trips:</b></h4>
+                        {% for trip in trips_by_agencies %}
+                            {% if trip.used_agency == agency.agency_name %}
+                                <a class="details-btn" href="{% url 'details trip' pk=trip.pk %}">{{ trip.trip_name }},</a>
 
-                    {% for used_agency in used_agency.trips_set.all %}
-                        {{ used_agency.trip_name }}
-                    {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 {% endfor %}
             </section>

@@ -18,6 +18,7 @@
                     {% endif %}
                     <p><b><u>Country:</u></b> {{ trip.country.name }}</p>
                     <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
+                    <p><b><u>Rating:</u></b> {{ trip.average_rating }}</p>
                     <p><b><u>Sightseeing:</u></b> {{ trip.sightseeing }}</p>
                     <p><b><u>Activities:</u></b> {{ trip.activities }}</p>
                     <p><b><u>Food and Drinks:</u></b> {{ trip.food_and_drinks }}</p>
@@ -26,11 +27,13 @@
                 </div>
 
                 <!--Edit and Delete buttons -->
+            {% if rights_to_edit %}
                 <div id="action-buttons">
                     <a href="{% url 'edit trip' pk=trip.pk %}" id="edit-btn">Edit</a>
                     <a href="{% url 'delete trip' pk=trip.pk %}" id="delete-btn">Delete</a>
                 </div>
-
+                {% else %}
+            {% endif %}
             </div>
         </section>
     </main>

@@ -40,8 +40,13 @@ def create_trip(request):
 def details_trip(request, pk):
     trip = get_trip(pk)
 
+    rights_to_edit = True
+    if request.user.pk != trip.user_id:
+        rights_to_edit = False
+
     context = {
         'trip': trip,
+        'rights_to_edit': rights_to_edit,
     }
     return render(request, 'trips/details-trip.html', context)
 
@@ -49,6 +54,8 @@ def details_trip(request, pk):
 @login_required
 def edit_trip(request, pk):
     trip = get_trip(pk)
+
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

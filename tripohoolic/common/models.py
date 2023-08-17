@@ -46,7 +46,7 @@ class TripRating(models.Model):
 
     trip = models.ForeignKey(
         Trips,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE,
         null=False,
         blank=True,
     )

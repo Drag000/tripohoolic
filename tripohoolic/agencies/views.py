@@ -11,7 +11,8 @@ def index_agencies(request):
     trips_by_agencies = Trips.objects.filter(type="Agency")
 
     context = {
-        'agencies': agencies
+        'agencies': agencies,
+        'trips_by_agencies': trips_by_agencies,
     }
 
     return render(request, 'agencies/agencies.html', context)
