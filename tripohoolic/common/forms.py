@@ -7,12 +7,16 @@ class TripCommentForm(forms.ModelForm):
     class Meta:
         model = TripComment
         fields = ('text',)
-        widget = {
+        widgets = {
             'text': forms.TextInput(
                 attrs={
-                    'placeholder': 'Please add your comment',
+                    'placeholder': 'Please enter your comment',
                 },
             ),
+        }
+
+        labels = {
+            'text': "Comment",
         }
 
 

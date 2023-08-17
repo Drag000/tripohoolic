@@ -8,9 +8,6 @@ from tripohoolic.agencies.models import Agencies
 UserModel = get_user_model()
 
 
-# from django_countries.fields import CountryField
-
-
 class Trips(models.Model):
     TRIP_NAME_MIN_LENGTH = 5
     TRIP_NAME_MAX_LENGTH = 50

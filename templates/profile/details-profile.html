@@ -27,25 +27,6 @@
                 <p><b><u>Email:</u></b> {{ userr.email }}</p>  {#.. {{ user_profilee.first_name }} #}
                 <p><b><u>Age:</u></b> {{ object.age }}</p>  {#.. {{ user_profilee.first_name }} #}
 
-
-                <div id="info-wrapper">
-                    <div id="details-description">
-                        {#                        <!-- email -->#}
-                        {#                        <p>#}
-                        {#                            {{ profile.email }}#}
-                        {#                        </p>#}
-                        {#                        <!-- age -->#}
-                        {#                        <p>#}
-                        {#                            Age: {{ profile.age }}#}
-                        {#                        </p>#}
-                        {#                        <!-- number of posts -->#}
-                        {#                        {% if number_of_posts == 0 %}#}
-                        {#                            <p id="nutrition">Posts: 0</p>#}
-                        {#                        {% else %}#}
-                        {#                            <p id="nutrition">Posts: {{ number_of_posts }}</p>#}
-                        {#                        {% endif %}#}
-
-                    </div>
                     <!--Edit and Delete buttons -->
                     <div id="action-buttons">
                         <a href="{% url 'edit profile' pk=object.pk %}" id="edit-btn">Edit Profile</a>

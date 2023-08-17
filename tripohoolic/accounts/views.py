@@ -32,7 +32,6 @@ class CustomFormsMixin(SingleObjectTemplateResponseMixin, ModelFormMixin, Proces
             profile_instance.user = user_instance
             profile_instance.save()
 
-            # Redirect or handle success
             return redirect('index')
         else:
             return redirect('index')
@@ -43,7 +42,7 @@ class RegisterUserView(views.CreateView, CustomFormsMixin):
     form_class = None
     success_url = reverse_lazy('index')
 
-    # след регистрация да се логва автом
+    # login automatically
     def form_valid(self, user_form):
         result = super().form_valid(user_form)
         user = self.object
@@ -78,59 +77,16 @@ class ProfileDetailsView(views.DetailView, LoginRequiredMixin):
 
         return context
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #
-    #     # Get the current User instance associated with the view
-    #     user_instance = self.request.user
-    #
-    #     try:
-    #         # Try to retrieve the associated UserProfile instance for the User
-    #         user_profile = UserProfile.objects.get(user=user_instance)
-    #         # Add the UserProfile pk as context data
-    #         context['user_profile_pk'] = user_profile.pk
-    #     except UserProfile.DoesNotExist:
-    #         # Handle the case where UserProfile does not exist for the current User
-    #         context['user_profile_pk'] = None
-    #
-    #     return context
 
-
-# class ProfileEditView(views.UpdateView):
-#     model = UserProfile
-#     fields = ['first_name', 'last_name', 'age', 'profile_picture', 'username']
-#     template_name = 'profile/edit-profile.html'
-#     success_url = reverse_lazy('index')
-#
-#     def get_initial(self):
-#         initial = super().get_initial()
-#         user_profile = self.get_object()  # Get the UserProfile object for the current instance
-#         initial['username'] = user_profile.user.username
-#         initial['first_name'] = user_profile.first_name
-#         initial['first_name'] = user_profile.user.username
-#         initial['last_name'] = user_profile.last_name
-#         initial['age'] = user_profile.age
-#         initial['profile_picture'] = user_profile.profile_picture
-#
-#         return initial
-
-# class ProfileEditView(views.UpdateView):
-#     model = UserProfile
-#     fields = ['first_name', 'last_name', 'age', 'profile_picture']
-#     template_name = 'profile/edit-profile.html'
-#     success_url = reverse_lazy('index')
-
-
-class ProfileEditView(views.UpdateView,LoginRequiredMixin):
+class ProfileEditView(views.UpdateView, LoginRequiredMixin):
     model = UserProfile
     fields = ['first_name', 'last_name', 'age', 'profile_picture']
     template_name = 'profile/edit-profile.html'
     success_url = reverse_lazy('index')
 
 
-class PasswordEditView(auth_views.PasswordChangeView,LoginRequiredMixin):
+class PasswordEditView(auth_views.PasswordChangeView, LoginRequiredMixin):
     model = UserModel
-    # fields = ['email', 'password']
     template_name = 'profile/edit-password.html'
     success_url = reverse_lazy('index')
 

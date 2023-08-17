@@ -8,28 +8,17 @@ from tripohoolic.trips.models import Trips
 UserModel = get_user_model()
 
 
-def get_profile():
-    try:
-        return UserModel.objects.get(pk=2)  # todo fix this
-    except UserModel.DoesNotExist as ex:
-        return None
-
-
 def get_trip(pk):
     return Trips.objects.get(pk=pk)
 
 
 @login_required
 def create_trip(request):
-    # profile = get_profile()
-
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Set the 'required' attribute of the 'used_agency' field's widget to False
         self.fields['used_agency'].widget.attrs['required'] = False
-
 
     if request.method == 'GET':
         form = TripCreateForm()
@@ -41,20 +30,8 @@ def create_trip(request):
             trip.save()  # Save the instance to the database
             return redirect('dashboard')
 
-    # if form.is_valid():
-    #     pet = form.save(commit=False)
-    #     pet.user = request.user
-    #     form.save()  # запиши обекта
-    #     return redirect('details user', pk=1)  # TODO: fix whehn auth
-
-    # def get_form(self, *args, **kwargs):
-    #     form = super().get_form(*args, **kwargs)
-    #     form.instance.user = self.request.user
-    #     return form
-
     context = {
         'form': form,
-        # 'profile': profile
     }
     return render(request, 'trips/create-trip.html', context)
 
@@ -104,7 +81,7 @@ def edit_trip(request, pk):
 
 
 @login_required
-def delete_trip(request, pk):  # само formata e различна, а триенето се прави във формата
+def delete_trip(request, pk):
     trip = get_trip(pk)
 
     if request.method == 'GET':

@@ -9,7 +9,10 @@ class TripBaseForm(forms.ModelForm):
         model = Trips
         # fields = '__all__'
         # fields = ('trip_name', 'type', 'used_agency', 'country', 'cities')
-        exclude = ('average_rating','user')
+        exclude = ('average_rating', 'user')
+
+
+class TripCreateForm(TripBaseForm):
 
     labels = {
         'type': "Type of trip",
@@ -49,28 +52,22 @@ class TripBaseForm(forms.ModelForm):
     }
 
 
-class TripCreateForm(TripBaseForm):
-    pass
-
-
 class TripEditForm(TripBaseForm):
     pass
 
 
-class TripDeleteForm(TripBaseForm):
-    # disabled_fields = '__all__'
+class TripDeleteForm(DisabledFormMixin, TripBaseForm):
+    disabled_fields = ['trip_name', 'type', 'used_agency', 'country', 'cities', 'sightseeing', 'activities', 'food_and_drinks', 'transport', 'notes']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__set_disabled_fields()
+        self._disable_fields()
 
-    def save(self,
-             commit=True):  # казваме какво да стане при save() за да не променяме логиката и да е еднаква във всики форми.. ( ако не pet  .delete()_
-        if commit:  # commit дали искаме да се прати към ДБ
+    def save(self, commit=True):
+        if commit:
+            super().save()
             self.instance.delete()
 
         return self.instance
 
-    def __set_disabled_fields(self):
-        for _, field in self.fields.items():
-            field.widget.attrs['readonly'] = 'readonly'
+

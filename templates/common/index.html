@@ -36,13 +36,13 @@
                 <a class="details-btn" href="{% url 'details trip' pk=trip.pk %}">More Details</a>
 
                 <!--Rating section -->
-                <h2>Rate Trip</h2>
+                <h4>Rate this trip:</h4>
                 <div class="rate-section">
                     <form class="create-form" method="post" action="{% url 'rate trip' trip_id=trip.pk %}">
-                        {{ rate_form.as_p }}
-                        <p>
-                            <button type="submit">Rate</button>
-                        </p>
+                        {{ rate_form.as_table }}
+
+                        <button type="submit">Rate</button>
+
                         {% csrf_token %}
                     </form>
                 </div>

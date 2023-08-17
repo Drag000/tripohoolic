@@ -5,7 +5,6 @@
     <div class="login-register-div">
         <div class="login-register-box">
 
-
             <!-- Start Login Form-->
             <form action="{% url 'login user' %}" method="post">
 {#                {{ form.username|placeholder:'Enter username:'|form_field_class:'form-username' }}#}
@@ -22,7 +21,7 @@
         </div>
         <div class="second-option">
             <!-- Link to Register Page-->
-            <p>Don't have account? <a href="{% url 'register user' %}?next={{ next }}">Register</a></p>
+            <p>Don't have account? <a href="{% url 'register user' %}">Register</a></p>
         </div>
     </div>
 

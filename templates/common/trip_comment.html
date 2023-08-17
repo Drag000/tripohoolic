@@ -22,10 +22,10 @@
     <h2>Add Comment</h2>
     <div class="comment">
         <form method="post" action="{% url 'comment trip' trip_id=trip.pk %}">
-            {{ comments_form.as_p }}
-            <p>
+            {{ comments_form.as_table }}
+
                 <button type="submit">Post</button>
-            </p>
+
             {% csrf_token %}
         </form>
     </div>

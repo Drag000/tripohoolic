@@ -11,6 +11,11 @@ class RegisterUserForm(auth_forms.UserCreationForm):
     class Meta:
         model = UserModel
         fields = ('username', 'password1', 'password2')
+        help_texts = {
+            'username': None,
+            'password1': None,
+            'password2': None,
+        }
 
 
 class RegisterProfileForm(forms.ModelForm):

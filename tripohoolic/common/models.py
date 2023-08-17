@@ -9,6 +9,7 @@ UserModel = get_user_model()
 
 class TripComment(models.Model):
     MAX_TEXT_LENGTH = 333
+
     text = models.CharField(
         max_length=MAX_TEXT_LENGTH,
         null=False,
