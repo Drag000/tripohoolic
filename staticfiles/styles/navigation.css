@@ -33,6 +33,16 @@ nav {
     opacity: 0.8;
 }
 
+#logoguest-img {
+    height: 80px;
+    display: flex;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 5px;
+    opacity: 0.8;
+    align-items: center;
+}
+
 
 nav a {
     font-size: 1.5rem;

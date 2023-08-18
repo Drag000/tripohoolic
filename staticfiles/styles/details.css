@@ -155,3 +155,12 @@ h4 {
     text-align: center;
     border-radius: 13px;
 }
+
+#website-title {
+    text-align: center;
+    font-size: 30px;
+    color: rgb(7, 49, 152);
+    align-items: center;
+    margin: 100px auto;
+    padding: 20px;
+}

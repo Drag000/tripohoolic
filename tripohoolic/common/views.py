@@ -10,10 +10,9 @@ from tripohoolic.trips.models import Trips
 UserModel = get_user_model()
 
 
-@login_required
+
 def index(request):
     trips = Trips.objects.all()
-    # trip_all_comments = TripComment.objects.all()
 
     search_form_country = SearchCountryForm(request.GET)
     search_pattern = None
@@ -23,22 +22,23 @@ def index(request):
     if search_pattern:
         trips = trips.filter(country__icontains=search_pattern)
 
-    search_form_city = SearchCityForm(request.GET)
-    search_pattern = None
-    if search_form_city.is_valid():
-        search_pattern = search_form_city.cleaned_data['city_name']
+    # search_form_city = SearchCityForm(request.GET)
+    # search_pattern = None
+    # if search_form_city.is_valid():
+    #     search_pattern = search_form_city.cleaned_data['city_name']
+    #
+    # if search_pattern:
+    #     trips = trips.filter(city__icontains=search_pattern)
 
-    if search_pattern:
-        trips = trips.filter(city__icontains=search_pattern)
-
+    authenticaed_user = request.user.is_authenticated
 
     context = {
         'trips': trips,
-        # 'trip_all_comments': trip_all_comments,
         'comments_form': TripCommentForm(),
         'rate_form': TripRatingForm(),
         'search_form_country': SearchCountryForm(),
         'search_form_city': SearchCityForm(),
+        'authenticaed_user': authenticaed_user,
     }
     return render(request, 'common/index.html', context)
 
@@ -75,8 +75,6 @@ def comment_trip(request, trip_id):
 def rate_trip(request, trip_id):
     rating_trip = Trips.objects.get(pk=trip_id)
 
-
-
     try:
         existing_rating = TripRating.objects.get(trip_id=trip_id, user_id=request.user.id)
         existing_rating.delete()
@@ -90,7 +88,5 @@ def rate_trip(request, trip_id):
         rate.trip_id = rating_trip.pk  # вземи trip вече избрано с trip_in
         rate.user_id = request.user.id
         rate.save()
-
-
 
     return redirect('index')

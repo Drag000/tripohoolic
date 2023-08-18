@@ -4,22 +4,36 @@
 {% block content %}
 
     <main>
-        <!-- Start Searchbar Form -->
-        <form class="searchbar" method="get" action="{% url 'index' %}">
-            {{ search_form_country }}
-            {{ search_form_city }}
-            <button>
-                <img src="{% static 'images/search_icon.png' %}" height="12" alt="img2">
-            </button>
-            {% csrf_token %}
-        </form>
-        <!-- End Searchbar Form -->
+        {% if authenticaed_user %}
+            <!-- Start Searchbar Form -->
+            <form class="searchbar" method="get" action="{% url 'index' %}">
+                {{ search_form_country }}
+                <button>
+                    <img src="{% static 'images/search_icon.png' %}" height="12" alt="img2">
+                </button>
+                {% csrf_token %}
+            </form>
+            <!-- End Searchbar Form -->
+        {% endif %}
+
 
         <!-- Home page -->
+        {% if not authenticaed_user %}
+            <p id="website-title">Do you want to take advice and share you passion about travelling.. come and join us
+                by creating an
+                account..
+            </p>
+            <p id="website-title">
+                <a href="{% url 'register user' %}"><i>Register</i></a>
+                ... or ...
+                <a href="{% url 'login user' %}"><i>Login</i></a>
+            </p>
+        {% endif %}
+
         {% for trip in trips %}
             <div id="details-wrapper">
-                <!-- trip image -->
-                {#                <img id="details-img" src="{{trip.image_url}}" alt="trip_photo"/>#}
+
+{#                <img id="details-img" src="{{ trip.image_url }}" alt="trip_photo"/>#}
 
                 <p><b><u>User:</u></b> {{ trip.user.username }}</p>
                 <p><b><u>Trip name:</u></b> {{ trip.trip_name }}</p>
@@ -31,24 +45,26 @@
                 <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
                 <p><b><u>Rate:</u></b> {{ trip.average_rating }}</p>
 
+                {% if authenticaed_user %}
+                    <div>
+                        <a class="details-btn" href="{% url 'details trip' pk=trip.pk %}">More Details</a>
 
-                {#                {{ trip.triprating_set.all }}#}
-                <a class="details-btn" href="{% url 'details trip' pk=trip.pk %}">More Details</a>
+                        <!--Rating section -->
+                        <h4>Rate this trip:</h4>
+                        <div class="rate-section">
+                            <form class="create-form" method="post" action="{% url 'rate trip' trip_id=trip.pk %}">
+                                {{ rate_form.as_table }}
 
-                <!--Rating section -->
-                <h4>Rate this trip:</h4>
-                <div class="rate-section">
-                    <form class="create-form" method="post" action="{% url 'rate trip' trip_id=trip.pk %}">
-                        {{ rate_form.as_table }}
+                                <button type="submit">Rate</button>
 
-                        <button type="submit">Rate</button>
+                                {% csrf_token %}
+                            </form>
+                        </div>
 
-                        {% csrf_token %}
-                    </form>
-                </div>
-
-                <!--Comments section -->
-                {% include 'common/trip_comment.html' with trip=trip %}
+                        <!--Comments section -->
+                        {% include 'common/trip_comment.html' with trip=trip %}
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
 

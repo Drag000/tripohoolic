@@ -18,7 +18,7 @@ def create_trip(request):
         super().__init__(*args, **kwargs)
 
         # Set the 'required' attribute of the 'used_agency' field's widget to False
-        self.fields['used_agency'].widget.attrs['required'] = False
+        self.fields['used_agency'].widget.attrs['required'] = True
 
     if request.method == 'GET':
         form = TripCreateForm()

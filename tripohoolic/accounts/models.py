@@ -53,8 +53,8 @@ class UserProfile(models.Model):
         blank=False,
     )
 
-    profile_picture = models.URLField(
-        # upload_to='profile_picture/',
+    profile_picture = models.ImageField(
+        upload_to='profile_picture/',
         null=True,
         blank=True,
     )

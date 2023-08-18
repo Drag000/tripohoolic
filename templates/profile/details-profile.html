@@ -10,30 +10,30 @@
             <div id="details-wrapper">
 
                 <!-- if the user has a profile image -->
-                {#                {% if profile_picture %}#}
-                {#                    <img id="details-img" src="{{ object.profile_picture }}"#}
-                {#                         alt="profile img"/>#}
-                {#                {% else %}#}
-                <!-- if the user has NO profile image -->
-                {#                    <img id="details-img" src="{% static 'images/no-profile-picture.png' %}" alt="profile img"/>#}
-                {#                {% endif %}#}
+                {% if profile_picture %}
+                    <img id="details-img" src="/media/{{ object.profile_picture }}"
+                         alt="profile img"/>
+                {% else %}
+                    <!-- if the user has NO profile image -->
+                    <img id="details-img" src="{% static 'images/no-profile-picture.png' %}" alt="profile img"/>
+                {% endif %}
 
                 <!-- user's full name -->
                 <p id="details-title">
                     Username: {{ userr.username }} {# .. = reuqest.user  #}
                 <p>
-                <p><b><u>First name:</u></b> {{ object.first_name }}</p>  {#.. {{ user_profilee.first_name }} #}
-                <p><b><u>Last name:</u></b> {{ object.last_name }}</p>  {#.. {{ user_profilee.first_name }} #}
-                <p><b><u>Email:</u></b> {{ userr.email }}</p>  {#.. {{ user_profilee.first_name }} #}
-                <p><b><u>Age:</u></b> {{ object.age }}</p>  {#.. {{ user_profilee.first_name }} #}
+                <p><b><u>First name:</u></b> {{ object.first_name }}</p> {#.. {{ user_profilee.first_name }} #}
+                <p><b><u>Last name:</u></b> {{ object.last_name }}</p> {#.. {{ user_profilee.first_name }} #}
+                <p><b><u>Email:</u></b> {{ userr.email }}</p> {#.. {{ user_profilee.first_name }} #}
+                <p><b><u>Age:</u></b> {{ object.age }}</p> {#.. {{ user_profilee.first_name }} #}
 
-                    <!--Edit and Delete buttons -->
-                    <div id="action-buttons">
-                        <a href="{% url 'edit profile' pk=object.pk %}" id="edit-btn">Edit Profile</a>
-                        <a href="{% url 'edit password' pk=object.pk %}" id="edit-btn">Change Password</a>
-                        <a href="{% url 'delete user' pk=object.pk %}" id="delete-btn">Delete</a>
-                    </div>
+                <!--Edit and Delete buttons -->
+                <div id="action-buttons">
+                    <a href="{% url 'edit profile' pk=object.pk %}" id="edit-btn">Edit Profile</a>
+                    <a href="{% url 'edit password' pk=object.pk %}" id="edit-btn">Change Password</a>
+                    <a href="{% url 'delete user' pk=object.pk %}" id="delete-btn">Delete</a>
                 </div>
+            </div>
             </div>
         </section>
     </main>

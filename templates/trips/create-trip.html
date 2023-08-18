@@ -9,6 +9,9 @@
                 <h2>Add New Trip</h2>
                 <form class="create-form" method="post" action="{% url 'create trip' %}">
                     {{ form.as_p }}
+                    {% if used_agency == 'Denita' %}
+                        AAAAAA
+                    {% endif %}
                     <button type="submit">Add Trip</button>
                     {% csrf_token %}
                 </form>
