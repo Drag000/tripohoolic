@@ -16,3 +16,7 @@ def index_agencies(request):
     }
 
     return render(request, 'agencies/agencies.html', context)
+
+
+def test(request):
+    pass
