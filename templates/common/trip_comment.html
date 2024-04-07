@@ -5,10 +5,20 @@
         {% if trip.tripcomment_set.all %}
             {% for comment in trip.tripcomment_set.all %}
                 <div class="comment">
+
                     <div class="comment-author"><a
                             href="{% url 'details user' pk=request.user.pk %}">{{ comment.user }}</a>
                     </div>
+
+                    <!-- Delete my comment -->
                     <div class="comment-text">{{ comment.text }}</div>
+                    {% if comment.user == request.user %}
+                    <form method="post" action="{% url 'delete comment' comment_id=comment.id %}">
+                        <button type="submit">x</button>
+                        {% csrf_token %}
+                    </form>
+                    {% endif %}
+
                 </div>
             {% endfor %}
         {% else %}

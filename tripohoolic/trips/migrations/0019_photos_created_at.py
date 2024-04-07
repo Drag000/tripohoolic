@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='photos',
             name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=2000),
+            field=models.DateTimeField(auto_now_add=True, default='2023-08-20'),
             preserve_default=False,
         ),
     ]

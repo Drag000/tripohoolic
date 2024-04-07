@@ -7,11 +7,18 @@
         <section id="create">
             <div class="form">
                 <h2>Add New Trip</h2>
-                <form class="create-form" method="post" action="{% url 'create trip' %}">
+                <form class="create-form" method="post" action="{% url 'create trip' %}" enctype="multipart/form-data">
                     {{ form.as_p }}
-                    {% if used_agency == 'Denita' %}
-                        AAAAAA
-                    {% endif %}
+{#                    {% if used_agency == 'Denita' %} #}
+{#                        AAAAAA#}
+{#                    {% endif %}#}
+
+                    {{ formset.management_form }}
+                    <p><b><u>Add photos:</u></b></p>
+                    {% for form in formset.forms %}
+                      {{ form.as_p }}
+                    {% endfor %}
+
                     <button type="submit">Add Trip</button>
                     {% csrf_token %}
                 </form>

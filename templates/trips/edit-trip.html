@@ -6,8 +6,33 @@
         <section id="edit">
             <div class="form">
                 <h2>Edit Trip</h2>
-                <form class="edit-form" method="post" action="{% url 'edit trip' pk=trip.pk%}">
+                <form class="edit-form" method="post" action="{% url 'edit trip' pk=trip.pk %}"
+                      enctype="multipart/form-data">
+
                     {{ form.as_p }}
+
+                    <b>Add new photos:</b>
+{#                    TODO after CSS make the list for deletion better#}
+                    {{ photos_form.image }}
+
+                    <b>Choose which photos to delete:</b>
+                    {% for choice in photos_form.delete_photos %}
+                         <label for="id_{{ choice.id }}">
+                             <input type="checkbox" id="id_{{ choice.id }}" name="delete_photos" value="{{ choice.id }}" class="checkbox-input">
+                             <img id="details-img" src="{{ choice.image.url }}" alt="Photo">
+                        </label>
+                    {% endfor %}
+
+{#                    {% for photo in photos_form.delete_photos%}#}
+{#                        <img class="form" src="{{ photo.image.url }}">#}
+{#                    {% endfor %}#}
+
+{#                    Photos:#}
+{#                    {% for photo in trip.photos.all %}#}
+{#                            <img class="form" src="{{ photo.image.url }}">#}
+{#                    {% endfor %}#}
+
+
 
                     <button type="submit">Edit</button>
                     {% csrf_token %}

@@ -60,6 +60,8 @@ class TripRating(models.Model):
         choices=RATES,
     )
 
+    #Create a new field in the model Trips 'average_rating' (here in model TripsRating)
+    #Data for the calculation is here (TripRating) and the field is in Trips
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
@@ -67,3 +69,4 @@ class TripRating(models.Model):
         average_rating = TripRating.objects.filter(trip=self.trip).aggregate(Avg('rate'))['rate__avg']
         self.trip.average_rating = average_rating
         self.trip.save()
+

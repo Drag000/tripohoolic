@@ -7,16 +7,30 @@
 
 .form {
     background-color: rgb(97, 92, 237);
-    max-width: 440px;
+    max-width: 640px;
     margin: auto;
     margin-top: 50px;
     margin-bottom: 50px;
 
-    padding: 45px;
+    padding: 25px;
     text-align: center;
     border-radius: 10px;
     border: 1px solid;
     box-shadow: 0 0 22px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+/*.photo {*/
+/*    display: block;*/
+/*    margin: 10px;*/
+/*    height: 200px; !* Adjust the height as needed *!*/
+/*    width: 300px; !* Adjust the width as needed *!*/
+/*}*/
+
+.form img {
+    display: inline-block;
+    margin: auto;
+    height: 10vh;
+    width: 10vh;
 }
 
 .form h2 {
@@ -65,7 +79,21 @@
 
 }
 
+/* CSS Styles for Checkbox Input Field */
+.checkbox-input {
+    margin-right: 5px; /* Adjust spacing between checkbox and label */
+}
 
+/* CSS Styles for Checkbox Label */
+.checkbox-label {
+    font-weight: normal; /* Ensure checkbox label is not bold */
+}
+
+/* Hover and Focus Styles for Checkbox Label */
+.checkbox-label:hover,
+.checkbox-label:focus {
+    text-decoration: underline; /* Add underline on hover or focus */
+}
 
 .form button:hover,
 .form button:active,

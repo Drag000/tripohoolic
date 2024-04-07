@@ -13,10 +13,12 @@
                 <div>
                     <p><b><u>Trip name:</u></b> {{ trip.trip_name }}</p>
                     <p><b><u>Trip type:</u></b> {{ trip.type }}</p>
-                    {% if trip.type == "Agency" %}
-                        <p><b><u>Agency:</u></b> {{ trip.used_agency }}</p>
-                    {% endif %}
-                    <p><b><u>Country:</u></b> {{ trip.country.name }}</p>
+                    <p><b><u>Agency:</u></b> {{ trip.used_agency }}</p>
+                    <p><b><u>Country:</u></b>
+                        {% for country in trip.country%}
+                        {{ country.name }},
+                        {% endfor %}
+                    </p>
                     <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
                     <p><b><u>Rating:</u></b> {{ trip.average_rating }}</p>
                     <p><b><u>Sightseeing:</u></b> {{ trip.sightseeing }}</p>
@@ -24,16 +26,21 @@
                     <p><b><u>Food and Drinks:</u></b> {{ trip.food_and_drinks }}</p>
                     <p><b><u>Transport:</u></b> {{ trip.transport }}</p>
                     <p><b><u>Notes:</u></b> {{ trip.notes }}</p>
+                    <p> Photos:
+                        {% for photo in photos %}
+                        <img id="details-img" src="{{ photo.image.url }}" alt="Photo"/>
+                        {% endfor %}
+
+                    </p>
                 </div>
 
                 <!--Edit and Delete buttons -->
-            {% if rights_to_edit %}
-                <div id="action-buttons">
-                    <a href="{% url 'edit trip' pk=trip.pk %}" id="edit-btn">Edit</a>
-                    <a href="{% url 'delete trip' pk=trip.pk %}" id="delete-btn">Delete</a>
-                </div>
-                {% else %}
-            {% endif %}
+                {% if rights_to_edit %}
+                    <div id="action-buttons">
+                        <a href="{% url 'edit trip' pk=trip.pk %}" id="edit-btn">Edit</a>
+                        <a href="{% url 'delete trip' pk=trip.pk %}" id="delete-btn">Delete</a>
+                    </div>
+                {% endif %}
             </div>
         </section>
     </main>

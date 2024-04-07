@@ -1,6 +1,5 @@
 from django.core import validators
 from django.db import models
-from django.contrib.auth import models as auth_models
 from django.contrib.auth.models import User
 
 
@@ -34,7 +33,6 @@ class UserProfile(models.Model):
     )
 
     age = models.PositiveIntegerField(
-        # default=16,
         null=True,
         blank=True,
         # validators=(
@@ -54,7 +52,7 @@ class UserProfile(models.Model):
     )
 
     profile_picture = models.ImageField(
-        upload_to='profile_picture/',
+        upload_to='profile_picture',
         null=True,
         blank=True,
     )

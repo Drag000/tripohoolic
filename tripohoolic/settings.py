@@ -9,9 +9,13 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
+import json
 
 from pathlib import Path
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)@&!3bfx53hk=k9zfu7vq58=e9@g&akw3u5+$ji5*27zv4yw98'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
@@ -82,12 +86,12 @@ WSGI_APPLICATION = 'tripohoolic.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "tripohoolic_db",
-        "USER": "postgres-user",
-        "PASSWORD": "password",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "ENGINE": os.environ.get('DB_ENGINE'),
+        "NAME": os.environ.get('DB_NAME'),
+        "USER": os.environ.get('DB_USER'),
+        "PASSWORD": os.environ.get('DB_PASSWORD'),
+        "HOST": os.environ.get('DB_HOST'),
+        "PORT": os.environ.get('DB_PORT'),
     }
 }
 
@@ -111,6 +115,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # if DEBUG:
 #     AUTH_PASSWORD_VALIDATORS = []
+#
+#     CACHES = {
+#         'default': {
+#             'BACKEND':
+#                 'django.core.cache.backends.dummy.DummyCache',
+#         }
+#     }
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

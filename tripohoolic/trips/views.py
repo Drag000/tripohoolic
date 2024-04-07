@@ -1,9 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.forms import modelformset_factory
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
-from tripohoolic.trips.forms import TripCreateForm, TripEditForm, TripDeleteForm
-from tripohoolic.trips.models import Trips
+from tripohoolic.agencies.models import Agencies
+from tripohoolic.trips.forms import TripCreateForm, TripEditForm, TripDeleteForm, MultiplePhotosForm
+from tripohoolic.trips.models import Trips, Photos
 
 UserModel = get_user_model()
 
@@ -17,21 +20,31 @@ def create_trip(request):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Set the 'required' attribute of the 'used_agency' field's widget to False
-        self.fields['used_agency'].widget.attrs['required'] = True
+    PhotoFormSet = modelformset_factory(Photos, fields=('image',), extra=5)
 
     if request.method == 'GET':
         form = TripCreateForm()
+        formset = PhotoFormSet(queryset=Photos.objects.none())
     else:
         form = TripCreateForm(request.POST)
-        if form.is_valid():
+        formset = PhotoFormSet(request.POST, request.FILES, queryset=Photos.objects.none())
+
+        if form.is_valid() and formset.is_valid():
             trip = form.save(commit=False)  # Create an instance of the Trip model without saving to the database
             trip.user = request.user  # Assign the authenticated user to the 'user' field
             trip.save()  # Save the instance to the database
-            return redirect('dashboard')
+
+            for photo_form in formset:
+                if 'image' in photo_form.cleaned_data and photo_form.cleaned_data['image']:
+                    photo = Photos(image=photo_form.cleaned_data['image'])
+                    photo.save()
+                    trip.photos.add(photo)
+
+        return redirect('dashboard')
 
     context = {
         'form': form,
+        'formset': formset,
     }
     return render(request, 'trips/create-trip.html', context)
 
@@ -39,6 +52,7 @@ def create_trip(request):
 @login_required
 def details_trip(request, pk):
     trip = get_trip(pk)
+    photos = trip.photos.all()
 
     rights_to_edit = True
     if request.user.pk != trip.user_id:
@@ -47,6 +61,7 @@ def details_trip(request, pk):
     context = {
         'trip': trip,
         'rights_to_edit': rights_to_edit,
+        'photos': photos,
     }
     return render(request, 'trips/details-trip.html', context)
 
@@ -54,34 +69,40 @@ def details_trip(request, pk):
 @login_required
 def edit_trip(request, pk):
     trip = get_trip(pk)
-
-
+    agencies = Agencies.objects.all()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Set the 'required' attribute of the 'used_agency' field's widget to False
-        self.fields['used_agency'].widget.attrs['required'] = False
-
     if request.method == 'GET':
         form = TripEditForm(instance=trip)
+        photos_form = MultiplePhotosForm(trip=trip)
     else:
         form = TripEditForm(request.POST, instance=trip)
-        if form.is_valid():
-            # form.save()
+        photos_form = MultiplePhotosForm(request.POST, request.FILES, trip=trip)
+
+        if form.is_valid() and photos_form.is_valid():
             trip = form.save(commit=False)
             trip.user = request.user
-
-            # Perform the additional validation for used_agency field here
-            if trip.type == Trips.TYPE_AGENCY and not trip.used_agency:
-                form.add_error('used_agency', 'This field is required for agency trips.')
-                return render(request, 'trips/create-trip.html', {'form': form})
-
             trip.save()
-            return redirect('dashboard')
+
+            for image_file in request.FILES.getlist('image'):
+                image_ins = Photos(image=image_file)  # Create object and save it to the model Photos
+                image_ins.save()
+                trip.photos.add(image_ins)  # Create connection in the through table
+
+            photo_ids_to_delete = photos_form.cleaned_data['delete_photos']
+            for id_to_delete in photo_ids_to_delete:  # deleting the selected photos by id from the model Photos
+                Photos(id=id_to_delete).delete()
+
+            def get_success_url():
+                return reverse('details trip', kwargs={'pk': trip.pk})
+
+            return redirect(get_success_url())
 
     context = {
         'form': form,
+        'photos_form': photos_form,
         'trip': trip,
     }
     return render(request, 'trips/edit-trip.html', context)

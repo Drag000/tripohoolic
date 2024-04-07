@@ -17,6 +17,3 @@ def index_agencies(request):
 
     return render(request, 'agencies/agencies.html', context)
 
-
-def test2(request):
-    pass

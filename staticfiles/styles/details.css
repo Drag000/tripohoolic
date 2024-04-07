@@ -34,6 +34,18 @@
     font-size: 22px;
 }
 
+h2 {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 0.1px;
+}
+
+h4 {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 0.1px;
+    color: rgb(7, 49, 152);
+}
 
 h4 {
     text-align: center;
@@ -72,39 +84,39 @@ span {
 }
 
 
+.rate-section {
+    margin: 1px auto;
+    height: 3vh;
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: rgb(204, 204, 245);
+    text-align: center;
+    border-radius: 13px;
+}
+
+
 .comments-section {
-    width: 100%;
+    margin: 10px auto;
+    width: 80%;
     height: auto;
     max-height: 200px;
-    display: flex;
+    display: block;
     flex-direction: column;
     background-color: rgb(217, 222, 215);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     border-radius: 13px;
 }
-
-h2 {
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 0.1px;
-}
-
-h4 {
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 0.1px;
-    color: rgb(7, 49, 152);
-}
-
-
 .comment {
     border-bottom: 1px solid #ccc;
     padding: 10px;
+    /*display: flex;*/
 }
 
-.comment:last-child {
-    border-bottom: none;
-}
+/*.comment:last-child {*/
+/*    border-bottom: none;*/
+/*}*/
 
 .comment-author {
     font-weight: bold;
@@ -143,18 +155,6 @@ h4 {
     border-radius: 13px;
 }
 
-
-.rate-section {
-    margin: 1px auto;
-    height: 3vh;
-    width: 50%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    background-color: rgb(204, 204, 245);
-    text-align: center;
-    border-radius: 13px;
-}
 
 #website-title {
     text-align: center;

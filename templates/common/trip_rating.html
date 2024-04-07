@@ -1,0 +1,15 @@
+{% load tags %}
+
+<h4>Rate this trip:</h4>
+<div class="rate-section">
+
+    My rating: {% my_rating trip_id=trip.pk user_id=user.pk%}
+
+    <form class="create-form" method="post" action="{% url 'rate trip' trip_id=trip.pk %}">
+        {{ rate_form }}
+
+        <button type="submit">Rate</button>
+
+        {% csrf_token %}
+    </form>
+</div>

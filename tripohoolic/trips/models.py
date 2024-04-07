@@ -20,8 +20,9 @@ class Trips(models.Model):
         (TYPE_GROUP, TYPE_GROUP),
         (TYPE_AGENCY, TYPE_AGENCY),
     )
+    # AGENCY_CHOICES = Agencies.objects.all()
+    # AGENCY_CHOICES = Agencies.objects.values_list('pk', 'agency_name')
 
-    AGENCY_CHOICES = Agencies.objects.values_list('agency_name', 'agency_name')
 
     user = models.ForeignKey(
         UserModel,
@@ -39,20 +40,26 @@ class Trips(models.Model):
         max_length=len(TYPE_AGENCY),
         choices=TRIP_TYPES,
         verbose_name='Trip type',
-    )
-
-    used_agency = models.CharField(
-        max_length=30,
-        choices=AGENCY_CHOICES,
-        blank=True,
-        null=True,
-    )
-
-    country = CountryField(
         blank=False,
         null=False,
     )
 
+    used_agency = models.ForeignKey(
+        Agencies,
+        on_delete=models.DO_NOTHING,
+        max_length=30,
+        # choices=AGENCY_CHOICES,
+        blank=False,
+        null=False,
+    )
+
+    country = CountryField(
+        multiple=True,
+        blank=False,
+        null=False,
+    )
+
+    #There is a similar package as for country, called django-cities, but it works a bit differently, it has table with cities
     cities = models.CharField(
         blank=False,
         null=False,
@@ -95,4 +102,23 @@ class Trips(models.Model):
         decimal_places=2,
         default=0.0,
         blank=True,
+    )
+
+    photos = models.ManyToManyField(
+        'Photos',
+        blank=True,
+    )
+
+
+class Photos(models.Model):
+    image = models.FileField(
+        upload_to='trips_photos',
+        null=True,
+        blank=True,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        null=False,
+        blank=False,
     )

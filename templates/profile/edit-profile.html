@@ -7,8 +7,9 @@
         <section id="register">
             <div class="form">
                 <h2>Edit Profile</h2>
-                <form class="register-form" method="post" action="{% url 'edit profile' pk=request.user.pk %}">
-                    {{ form }}
+                <form class="register-form" method="post" action="{% url 'edit profile' pk=request.user.pk %}"
+                    enctype="multipart/form-data">
+                    {{ form.as_p }}
 {#                    {{ user_form }}#}
 {#                    {{ profile_form }}#}
                     <button type="submit">Edit</button>

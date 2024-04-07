@@ -33,15 +33,19 @@
         {% for trip in trips %}
             <div id="details-wrapper">
 
-{#                <img id="details-img" src="{{ trip.image_url }}" alt="trip_photo"/>#}
+                {#                <img id="details-img" src="{{ trip.image_url }}" alt="trip_photo"/>#}
 
-                <p><b><u>User:</u></b> {{ trip.user.username }}</p>
+                <p><b><u>User: </u></b><a href="{% url 'details user' pk=trip.user.pk %}">{{ trip.user.username }}</a></p>
                 <p><b><u>Trip name:</u></b> {{ trip.trip_name }}</p>
                 <p><b><u>Trip type:</u></b> {{ trip.type }}</p>
                 {% if trip.type == "Agency" %}
                     <p><b><u>Agency:</u></b> {{ trip.used_agency }}</p>
                 {% endif %}
-                <p><b><u>Country:</u></b> {{ trip.country.name }}</p>
+                <p><b><u>Country:</u></b>
+                     {% for country in trip.country%}
+                        {{ country.name }},
+                        {% endfor %}
+                </p>
                 <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
                 <p><b><u>Rate:</u></b> {{ trip.average_rating }}</p>
 
@@ -50,21 +54,17 @@
                         <a class="details-btn" href="{% url 'details trip' pk=trip.pk %}">More Details</a>
 
                         <!--Rating section -->
-                        <h4>Rate this trip:</h4>
-                        <div class="rate-section">
-                            <form class="create-form" method="post" action="{% url 'rate trip' trip_id=trip.pk %}">
-                                {{ rate_form.as_table }}
-
-                                <button type="submit">Rate</button>
-
-                                {% csrf_token %}
-                            </form>
-                        </div>
+                        {% include 'common/trip_rating.html' with trip=trip %}
 
                         <!--Comments section -->
                         {% include 'common/trip_comment.html' with trip=trip %}
                     </div>
                 {% endif %}
+                <p><b><u>Photos:</u></b></p>
+                {% for photo in trip.photos.all %}
+                    <img id="details-img" src="{{ photo.image.url }}"/>
+                {% endfor %}
+
             </div>
         {% endfor %}
 

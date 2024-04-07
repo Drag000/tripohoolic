@@ -20,3 +20,5 @@ class Agencies(models.Model):
         null=False,
     )
 
+    def __str__(self):
+        return self.agency_name
