@@ -13,3 +13,4 @@ Tripohoolic app
 **-common**: app for storing and managing the main home page. It contains the models for commenting and rating trip posts by users (TripComment and TripRating models) 
           Each user can comment and rate all trip posts published by other users. Each trip has an average rating.
           The home page includes a search bar by country.
+asdasd
