@@ -1,5 +1,4 @@
 from django import forms
-
 from tripohoolic.agencies.models import Agencies
 from tripohoolic.core.forms_mixin import DisabledFormMixin
 from tripohoolic.trips.models import Trips, Photos
