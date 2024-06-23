@@ -17,6 +17,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+# ALLOWED_HOSTS='localhost 127.0.0.1'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -30,7 +31,9 @@ INSTALLED_APPS = [
     'tripohoolic.accounts',
     'tripohoolic.trips',
     'tripohoolic.agencies',
+
     'django_countries',
+    'rest_framework',
 
 ]
 

@@ -60,8 +60,7 @@ class TripRating(models.Model):
         choices=RATES,
     )
 
-    #Create a new field in the model Trips 'average_rating' (here in model TripsRating)
-    #Data for the calculation is here (TripRating) and the field is in Trips
+    #Data for the calculation is here (TripRating) and the field 'average_rating' is in Trips
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 

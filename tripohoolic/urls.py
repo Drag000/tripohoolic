@@ -10,6 +10,9 @@ urlpatterns = [
     path('accounts/', include('tripohoolic.accounts.urls')),
     path('trips/', include('tripohoolic.trips.urls')),
     path('agencies/', include('tripohoolic.agencies.urls')),
+
+    #Enable browsable API of Django Rest Framework
+    path('api-auth/', include('rest_framework.urls'))
 ]
 
 if settings.DEBUG:

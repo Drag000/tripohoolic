@@ -1,49 +1,11 @@
 from django.contrib.auth import views as auth_views, login, get_user_model, authenticate
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
-from django.views.generic.detail import SingleObjectTemplateResponseMixin
-from django.views.generic.edit import BaseUpdateView, ModelFormMixin, ProcessFormView
-
-from tripohoolic.accounts.forms import RegisterUserForm, RegisterProfileForm
+from tripohoolic.accounts.forms_mixins import CustomFormsMixin
 from tripohoolic.accounts.models import UserProfile
 
 UserModel = get_user_model()
-
-
-class CustomFormsMixin(SingleObjectTemplateResponseMixin, ModelFormMixin, ProcessFormView):
-    # overwriting get() to have the 2 forms
-    def get(self, request, *args, **kwargs):
-        user_form = RegisterUserForm()
-        profile_form = RegisterProfileForm()
-        return self.render_to_response(
-            context={'user_form': user_form,
-                     'profile_form': profile_form
-                     }
-        )
-
-    # validating the 2 forms and save them
-    def post(self, request, *args, **kwargs):
-        user_form = RegisterUserForm(request.POST)
-        profile_form = RegisterProfileForm(request.POST)
-
-        if user_form.is_valid() and profile_form.is_valid():
-            # Save data to User model
-            user_instance = user_form.save()
-
-            # Save data to UserProfile model (linking to the User model)
-            profile_instance = profile_form.save(commit=False)
-            profile_instance.user = user_instance
-            profile_instance.save()
-
-            # Login auutomatically after registration
-            login(self.request, user_instance)
-
-            return redirect('index')
-        else:
-            return redirect('index')
 
 
 class RegisterUserView(views.CreateView, CustomFormsMixin):
@@ -67,13 +29,13 @@ class ProfileDetailsView(views.DetailView, LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Fetch data from UserProfile model.. това си е "object." ...
+        # Fetch data from UserProfile model. (This is "object")
         user_profile = UserProfile.objects.get(pk=self.kwargs['pk'])
-        context['user_profilee'] = user_profile
+        context['user_profile'] = user_profile
 
         # Fetch data from User model  (take the user as an object)
-        asd = UserModel.objects.get(pk=user_profile.pk)
-        context['userr'] = asd
+        user_model = UserModel.objects.get(pk=user_profile.pk)
+        context['user_model'] = user_model
 
         rights_to_edit = True
         if user_profile.pk != self.request.user.pk:

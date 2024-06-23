@@ -4,7 +4,7 @@
 {% block content %}
 
     <main>
-        {% if authenticaed_user %}
+        {% if authenticated_user %}
             <!-- Start Searchbar Form -->
             <form class="searchbar" method="get" action="{% url 'index' %}">
                 {{ search_form_country }}
@@ -18,7 +18,7 @@
 
 
         <!-- Home page -->
-        {% if not authenticaed_user %}
+        {% if not authenticated_user %}
             <p id="website-title">Do you want to take advice and share you passion about travelling.. come and join us
                 by creating an
                 account..
@@ -49,7 +49,7 @@
                 <p><b><u>Cities:</u></b> {{ trip.cities }}</p>
                 <p><b><u>Rate:</u></b> {{ trip.average_rating }}</p>
 
-                {% if authenticaed_user %}
+                {% if authenticated_user %}
                     <div>
                         <a class="details-btn" href="{% url 'details trip' pk=trip.pk %}">More Details</a>
 

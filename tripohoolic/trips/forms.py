@@ -48,7 +48,7 @@ class TripBaseForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        #<Make used_agency dynamic drop down list from the existing objects in Agencies model
+        #Make used_agency dynamic drop down list from the existing objects in Agencies model
         self.fields['used_agency'].queryset = Agencies.objects.all()
 
         # TODO if Solo and add Agencgy to hide/show field in the browsed (to be done dynamically) I need JavaScript because the template is executed on the server side, but the user interaction occurs on the client side.. in the browser.

@@ -6,6 +6,8 @@
     <main>
         <h1>Agencies</h1>
 {#        {% if agencies %}#}
+            <div id="loading-message">Loading...</div>
+
             <section id="dashboard-agencies">
                 {% for agency in agencies %}
                     <div class="agency">
@@ -26,5 +28,46 @@
 {#            <h2>No Agencies yet.</h2>#}
 {#        {% endif %}#}
     </main>
+
+{#     <script>#}
+{#         setTimeout(() => console.log("AAAAAAAA"),2000);#}
+{#        document.addEventListener("DOMContentLoaded", function() {#}
+{#            document.querySelector("#loading-message").style.display = "none";#}
+{#            document.querySelector("#dashboard-agencies").style.display = "block";#}
+{#        });#}
+{#    </script>#}
+
+{#        <script>#}
+{#        // Hide the loading message and show the content after a delay#}
+{#        document.addEventListener("DOMContentLoaded", function() {#}
+{#            // Simulate a delay of 2 seconds (2000 milliseconds)#}
+{#            setTimeout(function() {#}
+{#                document.querySelector("#loading-message").style.display = "none";#}
+{#                document.querySelector("#dashboard-agencies").style.display = "block";#}
+{#            }, 2000); // Adjust the delay time as needed#}
+{#        });#}
+{#        </script>#}
+
+    <script>
+        // Function to simulate a delay
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Function to show the content and hide the loading message after a delay
+        async function showContent() {
+            // Simulate a delay of 2 seconds (2000 milliseconds)
+            await delay(2000);
+            document.querySelector("#loading-message").style.display = "none";
+            document.querySelector("#dashboard-agencies").style.display = "block";
+        }
+
+        // Call the showContent function when the DOM is fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            showContent();
+        });
+    </script>
+
+
 
 {% endblock %}

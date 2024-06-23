@@ -47,7 +47,7 @@ def index(request):
     # if search_pattern:
     #     trips = trips.filter(city__icontains=search_pattern)
 
-    authenticaed_user = request.user.is_authenticated
+    authenticated_user = request.user.is_authenticated
 
     context = {
         'trips': trips,
@@ -55,7 +55,7 @@ def index(request):
         'rate_form': TripRatingForm(),
         'search_form_country': SearchCountryForm(),
         'search_form_city': SearchCityForm(),
-        'authenticaed_user': authenticaed_user,
+        'authenticated_user': authenticated_user,
     }
     return render(request, 'common/index.html', context)
 

@@ -40,7 +40,7 @@ def create_trip(request):
                     photo.save()
                     trip.photos.add(photo)
 
-        return redirect('dashboard')
+            return redirect('dashboard')
 
     context = {
         'form': form,
@@ -115,10 +115,11 @@ def delete_trip(request, pk):
     if request.method == 'GET':
         form = TripDeleteForm(instance=trip)
     else:
-        form = TripDeleteForm(request.POST, instance=trip)
-        if form.is_valid():
-            form.save()
-            return redirect('dashboard')
+        # form = TripDeleteForm(request.POST, instance=trip)
+        # if form.is_valid():
+        #     form.save()
+        trip.delete()
+        return redirect('dashboard')
 
     context = {
         'form': form,
